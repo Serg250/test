@@ -1,0 +1,56 @@
+/*Rating*/
+#rat {
+  display: none;
+}
+
+.rat_wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+#count {
+  font-size: 22px;
+  margin-left: 10px;
+  color: goldenrod;
+}
+
+.stars {
+  width: 140px;
+  &:not(:checked) {
+    > input {
+      display: none;
+    }
+    > label {
+      float: right;
+      width: 25px;
+      margin-right: 2px;
+      cursor: pointer;
+      font-size: 24px;
+    }
+    > label:before {
+      content: ' ';
+      display: block;
+      background-image: url('../img/star.svg');
+      width: 25px;
+      height: 23px;
+    }
+  }
+
+  > input:checked ~ label {
+    background-image: url('../img/star-active.svg');
+  }
+  &.on:not(:checked) > label:hover,
+  &.on:not(:checked) > label:hover ~ label {
+    background-image: url('../img/star-active.svg');
+  }
+  &.on > input:checked ~ label:hover,
+  &.on > input:checked ~ label:hover ~ label,
+  &.on > label:hover ~ input:checked ~ label {
+    background-image: url('../img/star-active.svg');
+  }
+
+  > label:active {
+    position: relative;
+  }
+}
