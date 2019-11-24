@@ -19,20 +19,19 @@ var gulp = require('gulp'),
 
 // Пользовательские скрипты проекта
 
-gulp.task('common-js', function () {
-    return gulp.src([
-        'app/js/common.js'
-    ])
-        .pipe(concat('common.min.js'))
-        .pipe(uglify())
-        .pipe(gulp.dest('app/js'));
-});
+// gulp.task('common-js', function () {
+//     return gulp.src([
+//         'app/js/common.js'
+//     ])
+//         .pipe(concat('common.min.js'))
+//         .pipe(uglify())
+//         .pipe(gulp.dest('app/js'));
+// });
 
-gulp.task('js', ['common-js'], function () {
+gulp.task('js', function () {
     return gulp.src([
-
-        'app/js/MyRating.js',
-       'app/js/common.js' // Всегда в конце
+        // 'app/js/MyRating.js',
+        'app/js/common.js' // Всегда в конце
     ])
         .pipe(concat('scripts.min.js'))
         .pipe(uglify()) // Минимизировать весь js (на выбор)
@@ -52,7 +51,7 @@ gulp.task('sprite', function () {
 
 gulp.task('browser-sync', function () {
     browserSync.init({ // Выполняем browserSync
-        proxy: "t.loc", // Прокси для Open Server
+        proxy: "in2.loc", // Прокси для Open Server
         notify: false // Отключаем уведомления
     });
 });
@@ -70,6 +69,7 @@ gulp.task('sass', function () {
 
 
 
+// gulp.task('watch', ['sass', 'js', 'browser-sync'], function () {
 gulp.task('watch', ['sass', 'js', 'browser-sync'], function () {
     gulp.watch('app/sass/**/*.+(sass|scss)', ['sass']);
     gulp.watch(['libs/**/*.js', 'app/js/common.js'], ['js']);

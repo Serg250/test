@@ -1,1 +1,1 @@
-{"count":2,"rat":7,"all":4}
+{"count":2,"rat":2,"all":1}

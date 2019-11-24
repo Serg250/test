@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Test</title>
     <link rel="stylesheet" href="css/main.min.css">
-    <script  src="js/scripts.min.js"></script>
+    <script src="js/scripts.min.js"></script>
 </head>
 <body>
 <?php
@@ -16,7 +16,8 @@ fclose($fd);
 <h2>Рейтинг</h2>
 <div class="rat_wrapper">
 
-    <div class="stars" id="rating"></div>
+    <div class="stars" id="rating">
+    </div>
     <div id="count"><?= $arr['count']; ?></div>
     <div id="rat"><?= $arr['all']; ?></div>
 </div>
@@ -37,7 +38,7 @@ fclose($fd);
     </select>
     <button onclick="jsClick();">go</button>
 </div>
-<?php include_once __DIR__.'/search.php';?>
+<?php include_once __DIR__ . '/search.php'; ?>
 
 <h2>Поиск видео</h2>
 <div class="search">
@@ -48,8 +49,10 @@ fclose($fd);
         </div>
         <input type="submit" value="Найти">
     </form>
-    <?=$htmlBody?>
+    <?= $htmlBody ?>
 </div>
+<script>
 
+</script>
 </body>
 </html>
