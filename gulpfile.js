@@ -17,20 +17,12 @@ var gulp = require('gulp'),
     gcmq = require('gulp-group-css-media-queries'),
     rsync = require('gulp-rsync');
 
-// Пользовательские скрипты проекта
 
-// gulp.task('common-js', function () {
-//     return gulp.src([
-//         'app/js/common.js'
-//     ])
-//         .pipe(concat('common.min.js'))
-//         .pipe(uglify())
-//         .pipe(gulp.dest('app/js'));
-// });
-
+/**
+ * Сжать скрипты
+ */
 gulp.task('js', function () {
     return gulp.src([
-        // 'app/js/MyRating.js',
         'app/js/common.js' // Всегда в конце
     ])
         .pipe(concat('scripts.min.js'))
@@ -39,7 +31,9 @@ gulp.task('js', function () {
         .pipe(browserSync.reload({stream: true}));
 });
 
-
+/**
+ * Сделать спрайты
+ */
 gulp.task('sprite', function () {
     var spriteData = gulp.src('app/icons/*.png')
         .pipe(spritesmith({
@@ -48,14 +42,21 @@ gulp.task('sprite', function () {
         }));
     return spriteData.pipe(gulp.dest('app/sprites/'));
 });
-
+/**
+ * Запустить браузер.
+ *
+ * Указать путь до локального сервера
+ */
 gulp.task('browser-sync', function () {
     browserSync.init({ // Выполняем browserSync
-        proxy: "in2.loc", // Прокси для Open Server
+        proxy: "test25.loc", // Прокси для Open Server
         notify: false // Отключаем уведомления
     });
 });
 
+/**
+ * Перекодировать sass и сжать css
+ */
 gulp.task('sass', function () {
     return gulp.src('app/sass/**/*.+(sass|scss)')
         .pipe(sass({outputStyle: 'expand'}).on("error", notify.onError()))
@@ -68,8 +69,9 @@ gulp.task('sass', function () {
 });
 
 
-
-// gulp.task('watch', ['sass', 'js', 'browser-sync'], function () {
+/**
+ * Отслеживать изменения
+ */
 gulp.task('watch', ['sass', 'js', 'browser-sync'], function () {
     gulp.watch('app/sass/**/*.+(sass|scss)', ['sass']);
     gulp.watch(['libs/**/*.js', 'app/js/common.js'], ['js']);
@@ -77,6 +79,9 @@ gulp.task('watch', ['sass', 'js', 'browser-sync'], function () {
     gulp.watch('app/*.php', browserSync.reload);
 });
 
+/**
+ * Сжать картинки
+ */
 gulp.task('imagemin', function () {
     return gulp.src('app/img/**/*')
         .pipe(cache(imagemin({  // Сжимаем их с наилучшими настройками с учетом кеширования
@@ -88,6 +93,9 @@ gulp.task('imagemin', function () {
         .pipe(gulp.dest('dist/img'));
 });
 
+/**
+ * Скомпоновать проект
+ */
 gulp.task('build', ['removedist', 'sass', 'js'], function () {
 
     var buildFiles = gulp.src([
@@ -124,7 +132,9 @@ gulp.task('build', ['removedist', 'sass', 'js'], function () {
 });
 
 
-
+/**
+ * Залить на сервер
+ */
 gulp.task('rsync', function () {
     return gulp.src('dist/**')
         .pipe(rsync({
@@ -139,12 +149,20 @@ gulp.task('rsync', function () {
         }));
 });
 
+/**
+ * Удалить папку dist
+ */
 gulp.task('removedist', function () {
     return del.sync('dist');
 });
+/**
+ * Очистить кеш
+ */
 gulp.task('clearcache', function () {
     return cache.clearAll();
 });
 
-
+/**
+ * По умолчанию запустить отслеживание и браузер
+ */
 gulp.task('default', ['watch']);

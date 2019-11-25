@@ -14,6 +14,7 @@ try {
     echo '<div class="exception">';
     echo "Для работы поиска видео необходимо:<br>";
     echo $e->getMessage();
+    echo "Или разархивировать vendor.zip в нужную папку<br>";
     echo '</div>';
 
     die();
